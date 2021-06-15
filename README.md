@@ -1,6 +1,6 @@
 # Quick Spyglasser
 
-### Adds a keybind for using a spyglass in your inventory.
+Adds a keybind for using a spyglass in your inventory.
 
 ## TODO:
 - Config options to remove spyglass overlay/sound
