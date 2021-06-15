@@ -1,9 +1,10 @@
-# Fabric Example Mod
+# Quick Spyglasser
 
-## Setup
+### Adds a keybind for using a spyglass in your inventory.
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+## TODO:
+- Config options to remove spyglass overlay/sound
+- Curio support
+- Forge port
+- Client side item use rendering
+- Server side item use rendering
