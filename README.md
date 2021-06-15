@@ -1,6 +1,6 @@
 # Quick Spyglasser
 
-Client side Fabric mod that adds a keybind for using a spyglass in your inventory.
+Client side Fabric mod that adds a keybind for using a spyglass anywhere in your inventory.
 
 ## TODO:
 - Config options to remove spyglass overlay/sound

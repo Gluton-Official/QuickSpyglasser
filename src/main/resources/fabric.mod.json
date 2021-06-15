@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Quick Spyglasser",
-  "description": "Adds a keybind to use a spyglass in your inventory",
+  "description": "Client side Fabric mod that adds a keybind to use a spyglass anywhere in your inventory",
   "authors": [
     "Gluton"
   ],
