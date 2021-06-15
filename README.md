@@ -7,4 +7,4 @@ Client side mod that adds a keybind for using a spyglass in your inventory.
 - Curio support
 - Forge port
 - Client side item use rendering
-- Server side item use rendering
+- Global item use rendering
