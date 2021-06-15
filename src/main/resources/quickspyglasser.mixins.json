@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.gluton.quickspyglasser.mixin",
+  "refmap": "quickspyglasser-refmap.json",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+  ],
+  "client": [
+    "PlayerEntityMixin",
+    "PlayerInventoryAccessor",
+    "SpyglassItemMixin",
+    "AbstractClientPlayerEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

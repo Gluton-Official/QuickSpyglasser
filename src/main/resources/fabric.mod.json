@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "quickspyglasser",
+  "version": "${version}",
+
+  "name": "Quick Spyglasser",
+  "description": "Adds a keybind to use a spyglass in your inventory",
+  "authors": [
+    "Gluton"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/quickspyglasser/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.gluton.quickspyglasser.QuickSpyglasserClient"
+    ]
+  },
+  "mixins": [
+    "quickspyglasser.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
