@@ -1,4 +1,4 @@
-# Quick Spyglasser [![CurseForge](http://cf.way2muchnoise.eu/full_494512_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/expanvils "Quick Spyglasser on CurseForge") ![CurseForge](http://cf.way2muchnoise.eu/versions/494512.svg)
+# Quick Spyglasser [![CurseForge](http://cf.way2muchnoise.eu/full_494512_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/quick-spyglasser "Quick Spyglasser on CurseForge") ![CurseForge](http://cf.way2muchnoise.eu/versions/494512.svg)
 
 Client side Fabric mod that adds a keybind for using a spyglass anywhere in your inventory.
 
