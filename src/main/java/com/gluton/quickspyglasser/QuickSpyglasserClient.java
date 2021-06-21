@@ -1,6 +1,8 @@
 package com.gluton.quickspyglasser;
 
+import com.gluton.quickspyglasser.config.QuickSpyglasserConfig;
 import com.gluton.quickspyglasser.mixin.PlayerInventoryAccessor;
+import me.shedaniel.autoconfig.ConfigHolder;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -9,19 +11,22 @@ import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.SpyglassItem;
 import net.minecraft.util.Arm;
-import net.minecraft.util.collection.DefaultedList;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class QuickSpyglasserClient implements ClientModInitializer {
 
+	public static final ConfigHolder<QuickSpyglasserConfig> CONFIG = QuickSpyglasserConfig.init();
+
 	public static boolean isUsingSpyglass = false;
 	public static ItemStack spyglassInUse;
+	public static Item quickSpyglassItem;
 	private static KeyBinding keySpyglass;
 
 	@Override
@@ -33,7 +38,7 @@ public class QuickSpyglasserClient implements ClientModInitializer {
 			if (client.player == null) return;
 
 			if (isUsingSpyglass)
-				if (!keySpyglass.isPressed() || !client.player.getInventory().contains(spyglassInUse))
+				if (!keySpyglass.isPressed() || (spyglassInUse.isEmpty() && !client.player.getInventory().contains(spyglassInUse)))
 					stopUsingSpyglass(client);
 			while (keySpyglass.wasPressed())
 				if (!isUsingSpyglass)
@@ -42,17 +47,26 @@ public class QuickSpyglasserClient implements ClientModInitializer {
 	}
 
 	private void useSpyglass(MinecraftClient client) {
-		ItemStack spyglass = getSimilarStack(client.player.getInventory(), Items.SPYGLASS.getDefaultStack());
-		if (spyglass != null) {
-			isUsingSpyglass = true;
-			spyglassInUse = spyglass;
-			Items.SPYGLASS.use(client.world, client.player, null);
+		if (quickSpyglassItem == null || quickSpyglassItem == Items.AIR) {
+			// no item required
+			spyglassInUse = Items.SPYGLASS.getDefaultStack();
+		} else if (quickSpyglassItem instanceof SpyglassItem) {
+			// spyglass item required
+			spyglassInUse = getSimilarStack(client.player.getInventory(), quickSpyglassItem.getDefaultStack());
+			if (spyglassInUse == null) return;
+		} else if (client.player.getInventory().contains(quickSpyglassItem.getDefaultStack())) {
+			// non-spyglass item required
+			spyglassInUse = Items.SPYGLASS.getDefaultStack();
+		} else {
+			return;
 		}
+		isUsingSpyglass = true;
+		spyglassInUse.use(client.world, client.player, null);
 	}
 
 	private void stopUsingSpyglass(MinecraftClient client) {
-		isUsingSpyglass = false;
 		spyglassInUse.onStoppedUsing(client.world, client.player, 0);
+		isUsingSpyglass = false;
 		spyglassInUse = null;
 	}
 
@@ -66,6 +80,18 @@ public class QuickSpyglasserClient implements ClientModInitializer {
 			}
 		}
 		return null;
+	}
+
+	public static boolean shouldPlayUseSound() {
+		return !isUsingSpyglass || CONFIG.getConfig().playSpyglassSound;
+	}
+
+	public static boolean shouldRenderOverlay() {
+		return !isUsingSpyglass || CONFIG.getConfig().showSpyglassOverlay;
+	}
+
+	public static boolean shouldSmoothCamera() {
+		return isUsingSpyglass && CONFIG.getConfig().smoothZoom;
 	}
 
 	public static boolean rightHandedSpyglass(AbstractClientPlayerEntity player) {

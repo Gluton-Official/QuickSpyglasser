@@ -10,7 +10,9 @@
     "PlayerEntityMixin",
     "PlayerInventoryAccessor",
     "SpyglassItemMixin",
-    "AbstractClientPlayerEntityMixin"
+    "AbstractClientPlayerEntityMixin",
+    "InGameHudMixin",
+    "MouseMixin"
   ],
   "injectors": {
     "defaultRequire": 1

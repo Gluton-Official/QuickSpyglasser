@@ -2,24 +2,26 @@
   "schemaVersion": 1,
   "id": "quickspyglasser",
   "version": "${version}",
-
   "name": "Quick Spyglasser",
-  "description": "Client side Fabric mod that adds a keybind to use a spyglass anywhere in your inventory",
+  "description": "Adds a keybind to use a spyglass anywhere in your inventory",
   "authors": [
     "Gluton"
   ],
   "contact": {
-    "homepage": "",
-    "sources": ""
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/quick-spyglasser",
+    "sources": "https://github.com/Gluton-Official/QuickSpyglasser",
+    "issues": "https://github.com/Gluton-Official/QuickSpyglasser/issues"
   },
-
-  "license": "CC0-1.0",
+  "license": "LGPL-2.1",
   "icon": "assets/quickspyglasser/icon.png",
 
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "client": [
       "com.gluton.quickspyglasser.QuickSpyglasserClient"
+    ],
+    "modmenu": [
+      "com.gluton.quickspyglasser.config.QuickSpyglasserConfig\$QuickSpyglasserModMenu"
     ]
   },
   "mixins": [

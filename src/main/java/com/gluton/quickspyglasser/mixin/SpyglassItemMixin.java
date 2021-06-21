@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -22,7 +23,7 @@ public class SpyglassItemMixin {
 		maxUseTime.setReturnValue(72000);
 	}
 
-	@Redirect(method = "use",at = @At(value = "INVOKE",
+	@Redirect(method = "use", at = @At(value = "INVOKE",
 			target = "Lnet/minecraft/item/ItemUsage;consumeHeldItem(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/TypedActionResult;"))
 	private TypedActionResult<ItemStack> consumeHeldItemRedirector(World world, PlayerEntity user, Hand hand) {
 		if (QuickSpyglasserClient.isUsingSpyglass && user instanceof ClientPlayerEntity) {
@@ -30,5 +31,17 @@ public class SpyglassItemMixin {
 		} else {
 			return ItemUsage.consumeHeldItem(world, user, hand);
 		}
+	}
+
+	@ModifyArg(method = "use", index = 1, at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/entity/player/PlayerEntity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V"))
+	private float modifyUseVolume(float volume) {
+		return QuickSpyglasserClient.shouldPlayUseSound() ? volume : 0.0F;
+	}
+
+	@ModifyArg(method = "playStopUsingSound", index = 1, at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/entity/LivingEntity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V"))
+	private float modifyStopUsingVolume(float volume) {
+		return QuickSpyglasserClient.shouldPlayUseSound() ? volume : 0.0F;
 	}
 }

@@ -1,4 +1,13 @@
 {
   "category.quickspyglasser.spyglass": "Quick Spyglasser",
-  "key.quickspyglasser.use": "Use Spyglass"
+  "key.quickspyglasser.use": "Use Spyglass",
+
+  "text.autoconfig.quickspyglasser.title": "Quick Spyglasser Config",
+  "text.autoconfig.quickspyglasser.option.showSpyglassOverlay": "Show Spyglass Overlay",
+  "text.autoconfig.quickspyglasser.option.playSpyglassSound": "Play Spyglass Sound",
+  "text.autoconfig.quickspyglasser.option.smoothZoom": "Cinematic Mode When Zoomed",
+  "text.autoconfig.quickspyglasser.option.quickSpyglassItemId": "Quick Spyglassing Item",
+  "text.autoconfig.quickspyglasser.option.quickSpyglassItemId.@Tooltip[0]": "Item does not not have to be a spyglass",
+  "text.autoconfig.quickspyglasser.option.quickSpyglassItemId.@Tooltip[1]": "Leave blank to not require an item",
+  "text.autoconfig.quickspyglasser.option.quickSpyglassItemId.@Tooltip[2]": "Invalid item id will reset to default"
 }
