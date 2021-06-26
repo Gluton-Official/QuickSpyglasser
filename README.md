@@ -6,7 +6,8 @@ Client side Fabric mod that adds a keybind for using a spyglass anywhere in your
 - enable/disable spyglass overlay
 - enable/disable spyglass sound
 - enable/disable cinematic mode
-- set item required for using the keybind
+- set mouse sensitivity when zoomed
+- set item required for using the keybind (not visible in modmenu config)
 
 ## TODO:
 - Trinket support
