@@ -1,3 +1,8 @@
+### v0.2.1
+- Fixed keybind not requiring configurated item without saving the config first
+- Removed keybind item required from in game config (still configurable in config file)
+- Added zoomed sensitivity config option
+
 ### v0.2.0
 - Added config options when using the spyglass with keybind (does not apply to right-click spyglass usages)
   - enable/disable spyglass overlay

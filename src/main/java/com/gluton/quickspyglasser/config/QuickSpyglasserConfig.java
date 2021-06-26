@@ -11,6 +11,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -25,32 +26,45 @@ public class QuickSpyglasserConfig implements ConfigData {
     public boolean showSpyglassOverlay = true;
     public boolean playSpyglassSound = true;
     public boolean smoothZoom = false;
+    @ConfigEntry.Gui.Tooltip(count = 2)
+    @ConfigEntry.BoundedDiscrete(max = 800)
+    public int mouseSensitivity = 100;
+    @ConfigEntry.Gui.Excluded
     @ConfigEntry.Gui.Tooltip(count = 3)
     public String quickSpyglassItemId = "minecraft:spyglass";
 
     public static ConfigHolder<QuickSpyglasserConfig> init() {
         ConfigHolder<QuickSpyglasserConfig> configHolder = AutoConfig.register(
                 QuickSpyglasserConfig.class, JanksonConfigSerializer::new);
-        AutoConfig.getConfigHolder(QuickSpyglasserConfig.class).registerSaveListener((holder, config) -> {
-            Identifier itemId = Identifier.tryParse(config.quickSpyglassItemId);
-            if (itemId != null) {
-                Optional<Item> optionalItem = Registry.ITEM.getOrEmpty(itemId);
-                if (optionalItem.isPresent()) {
-                    QuickSpyglasserClient.quickSpyglassItem = optionalItem.get();
-                    return ActionResult.SUCCESS;
-                } else if (config.quickSpyglassItemId.isBlank()) {
-                    QuickSpyglasserClient.quickSpyglassItem = Items.AIR;
-                    return ActionResult.SUCCESS;
-                }
-            }
-
-            config.quickSpyglassItemId = "minecraft:spyglass";
-            QuickSpyglasserClient.quickSpyglassItem = Items.SPYGLASS;
+        configHolder.registerSaveListener((holder, config) -> {
+            updateRequiredItem(config);
             return ActionResult.SUCCESS;
         });
-        ServerLifecycleEvents.START_DATA_PACK_RELOAD.register(
-                (s, m) -> AutoConfig.getConfigHolder(QuickSpyglasserConfig.class).load());
+        configHolder.registerLoadListener((holder,  config) -> {
+            updateRequiredItem(config);
+            return ActionResult.SUCCESS;
+        });
+        ClientLifecycleEvents.CLIENT_STARTED.register((client) -> updateRequiredItem(configHolder.getConfig()));
+        ServerLifecycleEvents.SERVER_STARTED.register((server) -> updateRequiredItem(configHolder.getConfig()));
+        ServerLifecycleEvents.START_DATA_PACK_RELOAD.register((s, m) -> configHolder.load());
         return configHolder;
+    }
+
+    private static void updateRequiredItem(QuickSpyglasserConfig config) {
+        Identifier itemId = Identifier.tryParse(config.quickSpyglassItemId);
+        if (itemId != null) {
+            Optional<Item> optionalItem = Registry.ITEM.getOrEmpty(itemId);
+            if (optionalItem.isPresent()) {
+                QuickSpyglasserClient.quickSpyglassItem = optionalItem.get();
+                return;
+            } else if (config.quickSpyglassItemId.isBlank()) {
+                QuickSpyglasserClient.quickSpyglassItem = Items.AIR;
+                return;
+            }
+        }
+
+        config.quickSpyglassItemId = "minecraft:spyglass";
+        QuickSpyglasserClient.quickSpyglassItem = Items.SPYGLASS;
     }
 
     @Environment(EnvType.CLIENT)

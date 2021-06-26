@@ -27,20 +27,20 @@ public class QuickSpyglasserClient implements ClientModInitializer {
 	public static boolean isUsingSpyglass = false;
 	public static ItemStack spyglassInUse;
 	public static Item quickSpyglassItem;
-	private static KeyBinding keySpyglass;
+	private static KeyBinding spyglassKeybind;
 
 	@Override
 	public void onInitializeClient() {
-		keySpyglass = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+		spyglassKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
 				"key.quickspyglasser.use", InputUtil.Type.KEYSYM,
 				GLFW.GLFW_KEY_C, "category.quickspyglasser.spyglass"));
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (client.player == null) return;
 
 			if (isUsingSpyglass)
-				if (!keySpyglass.isPressed() || (spyglassInUse.isEmpty() && !client.player.getInventory().contains(spyglassInUse)))
+				if (!spyglassKeybind.isPressed() || (spyglassInUse.isEmpty() && !client.player.getInventory().contains(spyglassInUse)))
 					stopUsingSpyglass(client);
-			while (keySpyglass.wasPressed())
+			while (spyglassKeybind.wasPressed())
 				if (!isUsingSpyglass)
 					useSpyglass(client);
 		});
@@ -92,6 +92,10 @@ public class QuickSpyglasserClient implements ClientModInitializer {
 
 	public static boolean shouldSmoothCamera() {
 		return isUsingSpyglass && CONFIG.getConfig().smoothZoom;
+	}
+
+	public static float getMouseScale() {
+		return isUsingSpyglass ? CONFIG.getConfig().mouseSensitivity / 100.0F : 1.0F;
 	}
 
 	public static boolean rightHandedSpyglass(AbstractClientPlayerEntity player) {

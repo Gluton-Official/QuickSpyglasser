@@ -1,11 +1,13 @@
 package com.gluton.quickspyglasser.mixin;
 
 import com.gluton.quickspyglasser.QuickSpyglasserClient;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.Mouse;
 import net.minecraft.client.option.GameOptions;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(Mouse.class)
@@ -19,6 +21,15 @@ public class MouseMixin {
     @ModifyArg(method = "updateMouse", index = 0, at = @At(value = "INVOKE",
             target = "Lnet/minecraft/client/util/SmoothUtil;smooth(DD)D"))
     private double smoothRedirector(double original) {
-        return QuickSpyglasserClient.shouldSmoothCamera() ? original / 8 : original;
+        return QuickSpyglasserClient.shouldSmoothCamera() ?
+                (original / 8) * QuickSpyglasserClient.getMouseScale() : original;
+    }
+
+    @ModifyVariable(method = "updateMouse", /* name = "g" */ ordinal = 2,
+            at = @At(value = "FIELD", shift = At.Shift.BEFORE,
+                    target = "Lnet/minecraft/client/option/GameOptions;smoothCameraEnabled:Z"))
+    private double modifyMouseSensitivtyScale(double g) {
+        if (MinecraftClient.getInstance().player == null) return g;
+        return g * QuickSpyglasserClient.getMouseScale();
     }
 }
