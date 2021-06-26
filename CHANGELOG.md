@@ -12,7 +12,6 @@
 - Added Cloth Config integration (included library)
 - Added ModMenu optional dependency
 - Fixed some stuff in fabric.mod.json 
-- Added CurseGradle integration
 
 ### v0.1.0
 - Initial release
