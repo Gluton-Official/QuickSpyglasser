@@ -1,3 +1,6 @@
+### v0.3.0
+- Added Trinkets support
+
 ### v0.2.1
 - Fixed keybind not requiring configurated item without saving the config first
 - Removed keybind item required from in game config (still configurable in config file)
