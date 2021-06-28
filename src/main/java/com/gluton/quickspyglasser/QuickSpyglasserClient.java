@@ -101,7 +101,7 @@ public class QuickSpyglasserClient implements ClientModInitializer {
 	}
 
 	public static boolean shouldSmoothCamera() {
-		return isUsingSpyglass && CONFIG.getConfig().smoothZoom;
+		return isUsingSpyglass && CONFIG.getConfig().cinematicModeZoom;
 	}
 
 	public static float getMouseScale() {

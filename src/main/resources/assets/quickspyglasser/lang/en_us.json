@@ -5,7 +5,7 @@
   "text.autoconfig.quickspyglasser.title": "Quick Spyglasser Config",
   "text.autoconfig.quickspyglasser.option.showSpyglassOverlay": "Show Spyglass Overlay",
   "text.autoconfig.quickspyglasser.option.playSpyglassSound": "Play Spyglass Sound",
-  "text.autoconfig.quickspyglasser.option.smoothZoom": "Cinematic Mode When Zoomed",
+  "text.autoconfig.quickspyglasser.option.cinematicModeZoom": "Cinematic Mode When Zoomed",
   "text.autoconfig.quickspyglasser.option.mouseSensitivity": "Mouse Sensitivity When Zoomed",
   "text.autoconfig.quickspyglasser.option.mouseSensitivity.@Tooltip[0]": "Percentage (%)",
   "text.autoconfig.quickspyglasser.option.mouseSensitivity.@Tooltip[1]": "800% means no zoom sensitivity scaling is applied",

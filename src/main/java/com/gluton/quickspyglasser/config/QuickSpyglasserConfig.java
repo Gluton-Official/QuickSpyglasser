@@ -25,7 +25,7 @@ import java.util.Optional;
 public class QuickSpyglasserConfig implements ConfigData {
     public boolean showSpyglassOverlay = true;
     public boolean playSpyglassSound = true;
-    public boolean smoothZoom = false;
+    public boolean cinematicModeZoom = false;
     @ConfigEntry.Gui.Tooltip(count = 2)
     @ConfigEntry.BoundedDiscrete(max = 800)
     public int mouseSensitivity = 100;
