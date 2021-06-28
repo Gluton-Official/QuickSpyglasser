@@ -13,6 +13,10 @@ group = project.maven_group
 repositories {
 	maven { url "https://maven.terraformersmc.com" }
 	maven { url "https://maven.shedaniel.me/" }
+	maven {
+		name = "Ladysnake Libs"
+		url = "https://ladysnake.jfrog.io/artifactory/mods"
+	}
 }
 
 dependencies {
@@ -24,13 +28,16 @@ dependencies {
 	modImplementation "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}", {
 		exclude group: "net.fabricmc.fabric-api"
 	}
+
 	include "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}"
 
 	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}", {
 		exclude group: "net.fabricmc.fabric-api"
 	}
+	modCompileOnly "dev.emi:trinkets:${project.trinkets_version}"
 
 	modRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
+	modRuntime "dev.emi:trinkets:${project.trinkets_version}"
 }
 
 processResources {
@@ -43,7 +50,6 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = "UTF-8"
-
 	it.options.release = 16
 }
 
@@ -52,8 +58,8 @@ java {
 }
 
 curseforge {
-	apiKey = findProperty('curseKey') ?: 0
 	project {
+		apiKey = findProperty('curseKey') ?: 0
 		id = "${curse_id}"
 		releaseType = "${curse_release}"
 		changelogType = 'markdown'
@@ -65,8 +71,9 @@ curseforge {
 
 		relations {
 			requiredDependency 'fabric-api'
-			requiredDependency 'cloth-config'
+			embeddedLibrary 'cloth-config'
 			optionalDependency 'modmenu'
+			optionalDependency 'trinkets-fabric'
 		}
 
 		afterEvaluate {

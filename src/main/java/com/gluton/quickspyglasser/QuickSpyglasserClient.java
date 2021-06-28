@@ -1,5 +1,6 @@
 package com.gluton.quickspyglasser;
 
+import com.gluton.quickspyglasser.compat.trinket.SpyglassTrinket;
 import com.gluton.quickspyglasser.config.QuickSpyglasserConfig;
 import com.gluton.quickspyglasser.mixin.PlayerInventoryAccessor;
 import me.shedaniel.autoconfig.ConfigHolder;
@@ -19,6 +20,8 @@ import net.minecraft.util.Arm;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
+
+import static com.gluton.quickspyglasser.QuickSpyglasser.isTrinketsPresent;
 
 public class QuickSpyglasserClient implements ClientModInitializer {
 
@@ -52,7 +55,14 @@ public class QuickSpyglasserClient implements ClientModInitializer {
 			spyglassInUse = Items.SPYGLASS.getDefaultStack();
 		} else if (quickSpyglassItem instanceof SpyglassItem) {
 			// spyglass item required
-			spyglassInUse = getSimilarStack(client.player.getInventory(), quickSpyglassItem.getDefaultStack());
+			if (isTrinketsPresent) {
+				spyglassInUse = SpyglassTrinket.getEquippedTrinket(client.player);
+			}
+			// if no spyglass trinket was found
+			if (spyglassInUse == null) {
+				spyglassInUse = getSimilarStack(client.player.getInventory(), quickSpyglassItem.getDefaultStack());
+			}
+			// if no spyglass was found in the player's inventory
 			if (spyglassInUse == null) return;
 		} else if (client.player.getInventory().contains(quickSpyglassItem.getDefaultStack())) {
 			// non-spyglass item required
