@@ -1,3 +1,7 @@
+### v0.2.2
+- Cloth Config a now a non-embedded required dependency to reduce jar size [#4](https://github.com/Gluton-Official/QuickSpyglasser/issues/4)
+- Fixed crashing with Origins [#3](https://github.com/Gluton-Official/QuickSpyglasser/issues/3) 
+
 ### v0.2.1
 - Fixed keybind not requiring configurated item without saving the config first
 - Removed keybind item required from in game config (still configurable in config file)
