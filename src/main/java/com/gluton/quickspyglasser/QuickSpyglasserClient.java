@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.SpyglassItem;
 import net.minecraft.util.Arm;
+import net.minecraft.util.Hand;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
@@ -61,7 +62,8 @@ public class QuickSpyglasserClient implements ClientModInitializer {
 			return;
 		}
 		isUsingSpyglass = true;
-		spyglassInUse.use(client.world, client.player, null);
+		// use main hand as default in case something goes wrong
+		spyglassInUse.use(client.world, client.player, Hand.MAIN_HAND);
 	}
 
 	private void stopUsingSpyglass(MinecraftClient client) {
