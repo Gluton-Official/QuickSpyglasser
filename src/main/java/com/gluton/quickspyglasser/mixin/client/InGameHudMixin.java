@@ -1,4 +1,4 @@
-package com.gluton.quickspyglasser.mixin;
+package com.gluton.quickspyglasser.mixin.client;
 
 import com.gluton.quickspyglasser.QuickSpyglasserClient;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class InGameHudMixin {
     @Inject(method = "renderSpyglassOverlay", at = @At("HEAD"), cancellable = true)
     private void renderSpyglassOverlayInjector(CallbackInfo info) {
-        if (!QuickSpyglasserClient.shouldRenderOverlay()) {
+        if (!QuickSpyglasserClient.getInstance().shouldRenderOverlay()) {
             info.cancel();
         }
     }

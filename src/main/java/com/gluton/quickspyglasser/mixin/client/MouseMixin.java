@@ -1,4 +1,4 @@
-package com.gluton.quickspyglasser.mixin;
+package com.gluton.quickspyglasser.mixin.client;
 
 import com.gluton.quickspyglasser.QuickSpyglasserClient;
 import net.minecraft.client.MinecraftClient;
@@ -15,14 +15,15 @@ public class MouseMixin {
     @Redirect(method = "updateMouse", at = @At(value = "FIELD",
             target = "Lnet/minecraft/client/option/GameOptions;smoothCameraEnabled:Z"))
     private boolean smoothCameraEnabledRedirector(GameOptions gameOptions) {
-        return gameOptions.smoothCameraEnabled || QuickSpyglasserClient.shouldSmoothCamera();
+        return gameOptions.smoothCameraEnabled || QuickSpyglasserClient.getInstance().shouldSmoothCamera();
     }
 
     @ModifyArg(method = "updateMouse", index = 0, at = @At(value = "INVOKE",
             target = "Lnet/minecraft/client/util/SmoothUtil;smooth(DD)D"))
     private double smoothRedirector(double original) {
-        return QuickSpyglasserClient.shouldSmoothCamera() ?
-                (original / 8) * QuickSpyglasserClient.getMouseScale() : original;
+        var qsClient = QuickSpyglasserClient.getInstance();
+        return qsClient.shouldSmoothCamera() ?
+                (original / 8) * qsClient.getMouseScale() : original;
     }
 
     @ModifyVariable(method = "updateMouse", /* name = "g" */ ordinal = 2,
@@ -30,6 +31,6 @@ public class MouseMixin {
                     target = "Lnet/minecraft/client/option/GameOptions;smoothCameraEnabled:Z"))
     private double modifyMouseSensitivtyScale(double g) {
         if (MinecraftClient.getInstance().player == null) return g;
-        return g * QuickSpyglasserClient.getMouseScale();
+        return g * QuickSpyglasserClient.getInstance().getMouseScale();
     }
 }

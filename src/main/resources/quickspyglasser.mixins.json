@@ -4,15 +4,13 @@
   "package": "com.gluton.quickspyglasser.mixin",
   "refmap": "quickspyglasser-refmap.json",
   "compatibilityLevel": "JAVA_16",
-  "mixins": [
-  ],
   "client": [
     "PlayerEntityMixin",
     "PlayerInventoryAccessor",
     "SpyglassItemMixin",
-    "AbstractClientPlayerEntityMixin",
-    "InGameHudMixin",
-    "MouseMixin"
+    "client.AbstractClientPlayerEntityMixin",
+    "client.InGameHudMixin",
+    "client.MouseMixin"
   ],
   "injectors": {
     "defaultRequire": 1

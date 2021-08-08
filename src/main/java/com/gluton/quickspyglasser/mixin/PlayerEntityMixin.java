@@ -11,7 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class PlayerEntityMixin {
     @Inject(method = "isUsingSpyglass", at = @At("RETURN"), cancellable = true)
     private void isUsingSpyglassInjector(CallbackInfoReturnable<Boolean> isUsingSpyglass) {
-        if (QuickSpyglasserClient.isUsingSpyglass) {
+        // TODO: make server sided as well
+        if (QuickSpyglasserClient.getInstance().isUsingSpyglass()) {
             isUsingSpyglass.setReturnValue(true);
         }
     }

@@ -1,4 +1,4 @@
-package com.gluton.quickspyglasser.mixin;
+package com.gluton.quickspyglasser.mixin.client;
 
 import com.gluton.quickspyglasser.QuickSpyglasserClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -13,13 +13,13 @@ public abstract class AbstractClientPlayerEntityMixin {
     @Redirect(method = "getSpeed", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;isUsingSpyglass()Z"))
     private boolean shouldSpyglassSlow(AbstractClientPlayerEntity player) {
-        return !QuickSpyglasserClient.isUsingSpyglass && player.isUsingItem() && player.getActiveItem().isOf(Items.SPYGLASS);
+        return !QuickSpyglasserClient.getInstance().isUsingSpyglass() && player.isUsingItem() && player.getActiveItem().isOf(Items.SPYGLASS);
     }
 
     @Redirect(method = "getSpeed", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F"))
     private float handleSpgylassScale(float delta, float start, float end) {
-        float spyglassScale = QuickSpyglasserClient.isUsingSpyglass ? start * 0.1F : start;
+        float spyglassScale = QuickSpyglasserClient.getInstance().isUsingSpyglass() ? start * 0.1F : start;
         return MathHelper.lerp(delta, spyglassScale, end * spyglassScale);
     }
 }

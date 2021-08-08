@@ -26,8 +26,9 @@ public class SpyglassItemMixin {
 	@Redirect(method = "use", at = @At(value = "INVOKE",
 			target = "Lnet/minecraft/item/ItemUsage;consumeHeldItem(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/TypedActionResult;"))
 	private TypedActionResult<ItemStack> consumeHeldItemRedirector(World world, PlayerEntity user, Hand hand) {
-		if (QuickSpyglasserClient.isUsingSpyglass && user instanceof ClientPlayerEntity) {
-			return TypedActionResult.consume(QuickSpyglasserClient.spyglassInUse);
+		var qsClient = QuickSpyglasserClient.getInstance();
+		if (qsClient.isUsingSpyglass() && user instanceof ClientPlayerEntity) {
+			return TypedActionResult.consume(qsClient.getSpyglassInUse());
 		} else {
 			return ItemUsage.consumeHeldItem(world, user, hand);
 		}
@@ -36,12 +37,12 @@ public class SpyglassItemMixin {
 	@ModifyArg(method = "use", index = 1, at = @At(value = "INVOKE",
 			target = "Lnet/minecraft/entity/player/PlayerEntity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V"))
 	private float modifyUseVolume(float volume) {
-		return QuickSpyglasserClient.shouldPlayUseSound() ? volume : 0.0F;
+		return QuickSpyglasserClient.getInstance().shouldPlayUseSound() ? volume : 0.0F;
 	}
 
 	@ModifyArg(method = "playStopUsingSound", index = 1, at = @At(value = "INVOKE",
 			target = "Lnet/minecraft/entity/LivingEntity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V"))
 	private float modifyStopUsingVolume(float volume) {
-		return QuickSpyglasserClient.shouldPlayUseSound() ? volume : 0.0F;
+		return QuickSpyglasserClient.getInstance().shouldPlayUseSound() ? volume : 0.0F;
 	}
 }
