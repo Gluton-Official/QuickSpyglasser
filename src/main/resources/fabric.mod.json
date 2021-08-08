@@ -24,7 +24,7 @@
       "com.gluton.quickspyglasser.QuickSpyglasserClient"
     ],
     "modmenu": [
-      "com.gluton.quickspyglasser.config.QuickSpyglasserConfig\$QuickSpyglasserModMenu"
+      "com.gluton.quickspyglasser.config.QuickSpyglasserClientConfig\$QuickSpyglasserModMenu"
     ]
   },
   "mixins": [
