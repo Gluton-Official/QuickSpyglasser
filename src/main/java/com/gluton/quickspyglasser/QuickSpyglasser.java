@@ -2,6 +2,7 @@ package com.gluton.quickspyglasser;
 
 //import com.gluton.quickspyglasser.compat.trinket.SpyglassTrinket;
 
+import com.gluton.quickspyglasser.command.QuickSpyglasserCommand;
 import com.gluton.quickspyglasser.config.QuickSpyglasserConfig;
 import com.gluton.quickspyglasser.network.QuickSpyglasserNetwork;
 import me.shedaniel.autoconfig.ConfigHolder;
@@ -30,6 +31,7 @@ public class QuickSpyglasser implements ModInitializer {
 //            SpyglassTrinket.regsiter();
 //        }
         QuickSpyglasserNetwork.init();
+        QuickSpyglasserCommand.init();
     }
 
     public static QuickSpyglasser getInstance() {
