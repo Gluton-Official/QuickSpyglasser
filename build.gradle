@@ -1,6 +1,7 @@
 plugins {
-	id 'fabric-loom' version '0.8-SNAPSHOT'
+	id 'fabric-loom' version '0.9-SNAPSHOT'
 	id 'com.matthewprenger.cursegradle' version '1.4.0'
+	id 'maven-publish'
 }
 
 sourceCompatibility = JavaVersion.VERSION_16
@@ -17,6 +18,9 @@ repositories {
 		name = "Ladysnake Libs"
 		url = "https://ladysnake.jfrog.io/artifactory/mods"
 	}
+	flatDir {
+		dirs 'libs' // for trinkets since latest version isn't on maven
+	}
 }
 
 dependencies {
@@ -28,16 +32,26 @@ dependencies {
 	modImplementation "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}", {
 		exclude group: "net.fabricmc.fabric-api"
 	}
-
-	include "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}"
+	modImplementation "dev.emi:trinkets:${project.trinkets_version}", {
+		exclude group: "net.fabricmc.fabric-api"
+	}
+	// required for trinkets
+	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cca_version}"
+	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.cca_version}"
 
 	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}", {
 		exclude group: "net.fabricmc.fabric-api"
 	}
 	modCompileOnly "dev.emi:trinkets:${project.trinkets_version}"
+	// required for trinkets
+	modCompileOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cca_version}"
+	modCompileOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.cca_version}"
 
 	modRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
 	modRuntime "dev.emi:trinkets:${project.trinkets_version}"
+	// required for trinkets
+	modRuntime "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cca_version}"
+	modRuntime "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.cca_version}"
 }
 
 processResources {
@@ -58,8 +72,8 @@ java {
 }
 
 curseforge {
+	apiKey = findProperty('curseKey') ?: 0
 	project {
-		apiKey = findProperty('curseKey') ?: 0
 		id = "${curse_id}"
 		releaseType = "${curse_release}"
 		changelogType = 'markdown'
@@ -71,9 +85,9 @@ curseforge {
 
 		relations {
 			requiredDependency 'fabric-api'
-			embeddedLibrary 'cloth-config'
+			requiredDependency 'cloth-config'
 			optionalDependency 'modmenu'
-			optionalDependency 'trinkets-fabric'
+//			optionalDependency 'trinkets-fabric'
 		}
 
 		afterEvaluate {

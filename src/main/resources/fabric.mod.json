@@ -32,12 +32,14 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.11.3",
+    "cloth-config2": ">=5.0.38",
+    "fabricloader": ">=0.11.6",
     "fabric": "*",
     "minecraft": "1.17.x",
     "java": ">=16"
   },
   "suggests": {
-    "another-mod": "*"
+    "modmenu": ">=2.0.5",
+    "trinkets": ">=3.0.2"
   }
 }
