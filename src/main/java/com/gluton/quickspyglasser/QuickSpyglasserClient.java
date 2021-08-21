@@ -1,7 +1,6 @@
 package com.gluton.quickspyglasser;
 
-//import com.gluton.quickspyglasser.compat.trinket.SpyglassTrinket;
-
+import com.gluton.quickspyglasser.compat.trinket.SpyglassTrinket;
 import com.gluton.quickspyglasser.config.QuickSpyglasserClientConfig;
 import com.gluton.quickspyglasser.mixin.PlayerInventoryAccessor;
 import com.gluton.quickspyglasser.network.QuickSpyglasserClientNetwork;
@@ -44,21 +43,25 @@ public class QuickSpyglasserClient implements ClientModInitializer {
 		this.spyglassKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
 				"key." + QuickSpyglasser.MOD_ID + ".use", InputUtil.Type.KEYSYM,
 				GLFW.GLFW_KEY_C, "category" + QuickSpyglasser.MOD_ID + "spyglass"));
-		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if (client.player == null) return;
-
-			if (this.isUsingSpyglass)
-				if (!this.spyglassKeybind.isPressed() || (this.spyglassInUse.isEmpty() && !client.player.getInventory().contains(this.spyglassInUse)))
-					stopUsingSpyglass(client);
-			while (this.spyglassKeybind.wasPressed())
-				if (!this.isUsingSpyglass)
-					useSpyglass(client);
-		});
+		ClientTickEvents.END_CLIENT_TICK.register(this::onEndTick);
 		QuickSpyglasserClientNetwork.init();
 	}
 
 	public static QuickSpyglasserClient getInstance() {
 		return instance;
+	}
+
+	private void onEndTick(MinecraftClient client) {
+		if (client.player == null) return;
+
+		while (this.spyglassKeybind.wasPressed() && !this.isUsingSpyglass) {
+			useSpyglass(client);
+		}
+		if (this.isUsingSpyglass && !this.spyglassKeybind.wasPressed() && !this.spyglassKeybind.isPressed()
+				|| (this.spyglassInUse != null && this.spyglassInUse.isEmpty()
+						&& !client.player.getInventory().contains(this.spyglassInUse))) {
+			stopUsingSpyglass(client);
+		}
 	}
 
 	private void useSpyglass(@NotNull MinecraftClient client) {
@@ -75,10 +78,9 @@ public class QuickSpyglasserClient implements ClientModInitializer {
 		// spyglass item required, use spyglass in inventory
 		} else if (this.quickSpyglassItem instanceof SpyglassItem) {
 			// get trinket
-			// TODO: uncomment when trinkets is working
-//			if (QuickSpyglasser.isTrinketsPresent) {
-//				spyglassInUse = SpyglassTrinket.getEquippedTrinket(player);
-//			}
+			if (QuickSpyglasser.getInstance().isTrinketsPresent()) {
+				spyglassInUse = SpyglassTrinket.getEquippedTrinket(player);
+			}
 			// if no spyglass trinket was found, search inventory for spyglass
 			if (this.spyglassInUse == null) {
 				setSpyglassInUse(getSimilarStack(player.getInventory(), this.quickSpyglassItem.getDefaultStack()));
@@ -143,8 +145,8 @@ public class QuickSpyglasserClient implements ClientModInitializer {
 	public ItemStack getSpyglassInUse() {
 		return this.spyglassInUse;
 	}
+
 	public static boolean rightHandedSpyglass(@NotNull AbstractClientPlayerEntity player) {
 		return player.getMainArm() == Arm.RIGHT && player.getStackInHand(player.getActiveHand()).isEmpty();
 	}
-
 }

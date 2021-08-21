@@ -11,14 +11,14 @@ import net.minecraft.item.Items;
 import java.util.Optional;
 
 public class SpyglassTrinket implements Trinket {
-    public static void regsiter() {
+    public static void register() {
         TrinketsApi.registerTrinket(Items.SPYGLASS, new SpyglassTrinket());
     }
 
     public static ItemStack getEquippedTrinket(PlayerEntity player) {
         Optional<TrinketComponent> trinketComponent = TrinketsApi.getTrinketComponent(player);
         if (trinketComponent.isPresent()) {
-            var trinkets = trinketComponent.get().getEquipped(QuickSpyglasserClient.quickSpyglassItem);
+            var trinkets = trinketComponent.get().getEquipped(QuickSpyglasserClient.getInstance().getQSItem());
             // get the first trinket that matches the quickSpyglassItem
             for (var trinket : trinkets) {
                 return trinket.getRight();

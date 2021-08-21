@@ -29,6 +29,8 @@ public class QuickSpyglasserConfig implements ConfigData {
             QuickSpyglasserNetwork.syncRequiredItem(server);
         });
 
+        QuickSpyglasser.oldQuickSpyglassItemId = configHolder.getConfig().quickSpyglassItemId;
+
         return configHolder;
     }
 
@@ -53,9 +55,8 @@ public class QuickSpyglasserConfig implements ConfigData {
             }
         }
 
-        qs.setQSItem(Items.SPYGLASS);
-        config.quickSpyglassItemId = "minecraft:spyglass";
-        // if failed updating item, save/write the default value to config
+        // if failed updating item, save/write the previous value to config
+        config.quickSpyglassItemId = QuickSpyglasser.oldQuickSpyglassItemId;
         configHolder.save();
     }
 }
