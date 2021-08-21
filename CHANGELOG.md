@@ -1,5 +1,12 @@
 ### v0.3.0
 - Added Trinkets support
+- Implemented server-side config
+- Added command to change server config
+- Invalid itemId in config resets to previous instead of default
+
+### v0.2.2
+- Cloth Config is now a non-embedded required dependency to reduce jar size [#4](https://github.com/Gluton-Official/QuickSpyglasser/issues/4)
+- Fixed crashing with Origins [#3](https://github.com/Gluton-Official/QuickSpyglasser/issues/3)
 
 ### v0.2.1
 - Fixed keybind not requiring configurated item without saving the config first
