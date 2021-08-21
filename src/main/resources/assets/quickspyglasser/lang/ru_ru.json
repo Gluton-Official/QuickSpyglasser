@@ -1,0 +1,15 @@
+{
+  "category.quickspyglasser.spyglass": "Quick Spyglasser",
+  "key.quickspyglasser.use": "Посмотреть в подзорную трубу",
+
+  "commands.quickspyglasser.config.success": "Set %s to %s",
+  "commands.quickspyglasser.config.queryItem": "%s is %s %s",
+
+  "text.autoconfig.quickspyglasser-client.title": "Настройки Quick Spyglasser",
+  "text.autoconfig.quickspyglasser-client.option.showSpyglassOverlay": "Показывать оверлей",
+  "text.autoconfig.quickspyglasser-client.option.playSpyglassSound": "Проигрывать звук",
+  "text.autoconfig.quickspyglasser-client.option.cinematicModeZoom": "Кинематографическая камера",
+  "text.autoconfig.quickspyglasser-client.option.mouseSensitivity": "Чувствительность мыши",
+  "text.autoconfig.quickspyglasser-client.option.mouseSensitivity.@Tooltip[0]": "В процентах (%)",
+  "text.autoconfig.quickspyglasser-client.option.mouseSensitivity.@Tooltip[1]": "800% означает что чувствительность мыши не изменится"
+}
