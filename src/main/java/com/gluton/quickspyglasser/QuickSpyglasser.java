@@ -46,7 +46,6 @@ public class QuickSpyglasser implements ModInitializer {
     }
 
     public void setQSItem(Item item) {
-        LOGGER.info("Set item to {}", Registry.ITEM.getId(item));
         this.quickSpyglassItem = item;
         QuickSpyglasser.oldQuickSpyglassItemId = Registry.ITEM.getId(item).toString();
     }
