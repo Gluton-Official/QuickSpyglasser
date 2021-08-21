@@ -85,9 +85,9 @@ curseforge {
 
 		relations {
 			requiredDependency 'fabric-api'
-			requiredDependency 'cloth-config'
+			requiredDependency 'cloth-config2'
 			optionalDependency 'modmenu'
-//			optionalDependency 'trinkets-fabric'
+			optionalDependency 'trinkets-fabric'
 		}
 
 		afterEvaluate {
