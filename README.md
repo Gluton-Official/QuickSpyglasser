@@ -2,7 +2,7 @@
 
 Adds a keybind for using a spyglass anywhere in your inventory. (default key: C)
 
-Can be used client-side only, but server-side presence allows changing the item required to use the keybind.
+Can be used _client-side only_, but server-side presence allows changing the item required to use the keybind.
 
 **This mod is only for _Fabric_, Forge support is planned once it's out of beta!**
 
@@ -17,6 +17,7 @@ as well as Quick Spyglasser being present on both sides.
 | [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) | required | respective |
 | [Trinkets*](https://www.curseforge.com/minecraft/mc-mods/trinkets-fabric) | optional | both |
 | [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu) | optional | client |
+
 *Version must be ≥3.0.2
 
 ## Config options
