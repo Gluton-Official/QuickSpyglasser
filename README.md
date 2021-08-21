@@ -6,7 +6,7 @@ Can be used _client-side only_, but server-side presence allows changing the ite
 
 **This mod is only for _Fabric_, Forge support is planned once it's out of beta!**
 
-Now with Trinkets support! By default, a spyglass can be equipped in your face slot if the 
+Now with Trinkets support! By default, a spyglass can be equipped in your belt slot if the 
 [Trinkets](https://www.curseforge.com/minecraft/mc-mods/trinkets-fabric) mod is present on both client and server, 
 as well as Quick Spyglasser being present on both sides.
 
