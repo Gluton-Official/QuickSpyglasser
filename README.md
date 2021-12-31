@@ -11,14 +11,12 @@ Now with Trinkets support! By default, a spyglass can be equipped in your belt s
 as well as Quick Spyglasser being present on both sides.
 
 ### Mod Compatibility
-| Mod | Dependency | Side |
-| --- | --- | --- |
-| [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config) | required | respective |
-| [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) | required | respective |
-| [Trinkets*](https://www.curseforge.com/minecraft/mc-mods/trinkets-fabric) | optional | both |
-| [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu) | optional | client |
-
-*Version must be ≥3.0.2
+| Mod                                                                            | Dependency | Side       | Min version |
+|--------------------------------------------------------------------------------|------------|------------|-------------|
+| [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config)  | required   | respective | `>=6.0.42`  |
+| [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)          | required   | respective | `>=0.12.12` |
+| [Trinkets](https://www.curseforge.com/minecraft/mc-mods/trinkets-fabric)       | optional   | both       | `>=3.1.0`   |
+| [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu)               | optional   | client     | `>=3.0.0`   |
 
 ## Config options
 #### Client (editable in Mod Menu settings)
