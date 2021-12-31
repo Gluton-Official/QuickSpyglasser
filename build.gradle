@@ -47,11 +47,11 @@ dependencies {
 	modCompileOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cca_version}"
 	modCompileOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.cca_version}"
 
-	modRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
-	modRuntime "dev.emi:trinkets:${project.trinkets_version}"
+	modRuntimeOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+	modRuntimeOnly "dev.emi:trinkets:${project.trinkets_version}"
 	// required for trinkets
-	modRuntime "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cca_version}"
-	modRuntime "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.cca_version}"
+	modRuntimeOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cca_version}"
+	modRuntimeOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.cca_version}"
 }
 
 processResources {
