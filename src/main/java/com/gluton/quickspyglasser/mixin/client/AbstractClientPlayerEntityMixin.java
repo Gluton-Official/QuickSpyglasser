@@ -18,7 +18,7 @@ public abstract class AbstractClientPlayerEntityMixin {
 
     @Redirect(method = "getSpeed", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/util/math/MathHelper;lerp(FFF)F"))
-    private float handleSpgylassScale(float delta, float start, float end) {
+    private float handleSpyglassScale(float delta, float start, float end) {
         float spyglassScale = QuickSpyglasserClient.getInstance().isUsingSpyglass() ? start * 0.1F : start;
         return MathHelper.lerp(delta, spyglassScale, end * spyglassScale);
     }

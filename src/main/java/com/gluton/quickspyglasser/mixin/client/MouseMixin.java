@@ -29,7 +29,7 @@ public class MouseMixin {
     @ModifyVariable(method = "updateMouse", /* name = "g" */ ordinal = 2,
             at = @At(value = "FIELD", shift = At.Shift.BEFORE,
                     target = "Lnet/minecraft/client/option/GameOptions;smoothCameraEnabled:Z"))
-    private double modifyMouseSensitivtyScale(double g) {
+    private double modifyMouseSensitivityScale(double g) {
         if (MinecraftClient.getInstance().player == null) return g;
         return g * QuickSpyglasserClient.getInstance().getMouseScale();
     }

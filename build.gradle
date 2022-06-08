@@ -1,11 +1,11 @@
 plugins {
-	id 'fabric-loom' version '0.9-SNAPSHOT'
+	id 'fabric-loom' version '0.12-SNAPSHOT'
 	id 'com.matthewprenger.cursegradle' version '1.4.0'
 	id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_16
-targetCompatibility = JavaVersion.VERSION_16
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -15,7 +15,7 @@ repositories {
 	maven { url "https://maven.terraformersmc.com" }
 	maven { url "https://maven.shedaniel.me/" }
 	maven {
-		name = "Ladysnake Libs"
+		name = "Ladysnake Mods"
 		url = "https://ladysnake.jfrog.io/artifactory/mods"
 	}
 	flatDir {
@@ -36,22 +36,22 @@ dependencies {
 		exclude group: "net.fabricmc.fabric-api"
 	}
 	// required for trinkets
-	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cca_version}"
-	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.cca_version}"
+	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"
+	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
 
 	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}", {
 		exclude group: "net.fabricmc.fabric-api"
 	}
 	modCompileOnly "dev.emi:trinkets:${project.trinkets_version}"
 	// required for trinkets
-	modCompileOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cca_version}"
-	modCompileOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.cca_version}"
+	modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"
+	modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
 
-	modRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
-	modRuntime "dev.emi:trinkets:${project.trinkets_version}"
+	modRuntimeOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+	modRuntimeOnly "dev.emi:trinkets:${project.trinkets_version}"
 	// required for trinkets
-	modRuntime "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cca_version}"
-	modRuntime "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.cca_version}"
+	modRuntimeOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"
+	modRuntimeOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
 }
 
 processResources {
@@ -64,7 +64,7 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = "UTF-8"
-	it.options.release = 16
+	it.options.release = 17
 }
 
 java {
@@ -78,7 +78,7 @@ curseforge {
 		releaseType = "${curse_release}"
 		changelogType = 'markdown'
 		changelog = file('CHANGELOG.md')
-		addGameVersion "Java 16"
+		addGameVersion "Java 17"
 		addGameVersion "Fabric"
 		addGameVersion project.minecraft_version
 		mainArtifact(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
