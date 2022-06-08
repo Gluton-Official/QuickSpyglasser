@@ -5,24 +5,24 @@ import com.gluton.quickspyglasser.network.QuickSpyglasserNetwork;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.command.argument.ItemStackArgument;
 import net.minecraft.command.argument.ItemStackArgumentType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.registry.Registry;
 
 public class QuickSpyglasserCommand {
 
     public static void init() {
-        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             var node = dispatcher.register(CommandManager.literal("quickspyglasser")
                 .then(CommandManager.literal("config")
                     .then(CommandManager.literal("quickSpyglassItemId")
                         .executes(QuickSpyglasserCommand::sendCurrentQSItem)
-                        .then(CommandManager.argument("item", ItemStackArgumentType.itemStack())
+                        .then(CommandManager.argument("item", ItemStackArgumentType.itemStack(registryAccess))
                             .requires(source -> source.hasPermissionLevel(4))
                             .executes(QuickSpyglasserCommand::executeSetQSItemId)))));
             dispatcher.register(CommandManager.literal("qs").redirect(node));
@@ -38,13 +38,13 @@ public class QuickSpyglasserCommand {
         QuickSpyglasser.CONFIG.save();
         QuickSpyglasserNetwork.syncRequiredItem(source.getServer());
 
-        source.sendFeedback(new TranslatableText("commands.quickspyglasser.config.success",
+        source.sendFeedback(Text.translatable("commands.quickspyglasser.config.success",
                 "quickSpyglassItemId", item.createStack(1, false).toHoverableText()), true);
         return Command.SINGLE_SUCCESS;
     }
 
     private static Integer sendCurrentQSItem(CommandContext<ServerCommandSource> context) {
-        context.getSource().sendFeedback(new TranslatableText("commands.quickspyglasser.config.queryItem",
+        context.getSource().sendFeedback(Text.translatable("commands.quickspyglasser.config.queryItem",
                 "quickSpyglassItemId", QuickSpyglasser.CONFIG.getConfig().quickSpyglassItemId,
                 new ItemStack(QuickSpyglasser.getInstance().getQSItem(), 1).toHoverableText()), false);
         return Command.SINGLE_SUCCESS;
