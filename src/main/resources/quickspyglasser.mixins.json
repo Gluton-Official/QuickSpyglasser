@@ -3,7 +3,7 @@
   "minVersion": "0.8",
   "package": "com.gluton.quickspyglasser.mixin",
   "refmap": "quickspyglasser-refmap.json",
-  "compatibilityLevel": "JAVA_16",
+  "compatibilityLevel": "JAVA_17",
   "client": [
     "PlayerEntityMixin",
     "PlayerInventoryAccessor",
