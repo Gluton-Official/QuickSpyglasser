@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.10-SNAPSHOT'
+	id 'fabric-loom' version '0.12-SNAPSHOT'
 	id 'com.matthewprenger.cursegradle' version '1.4.0'
 	id 'maven-publish'
 }
@@ -15,7 +15,7 @@ repositories {
 	maven { url "https://maven.terraformersmc.com" }
 	maven { url "https://maven.shedaniel.me/" }
 	maven {
-		name = "Ladysnake Libs"
+		name = "Ladysnake Mods"
 		url = "https://ladysnake.jfrog.io/artifactory/mods"
 	}
 	flatDir {
@@ -36,22 +36,22 @@ dependencies {
 		exclude group: "net.fabricmc.fabric-api"
 	}
 	// required for trinkets
-	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cca_version}"
-	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.cca_version}"
+	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"
+	modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
 
 	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}", {
 		exclude group: "net.fabricmc.fabric-api"
 	}
 	modCompileOnly "dev.emi:trinkets:${project.trinkets_version}"
 	// required for trinkets
-	modCompileOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cca_version}"
-	modCompileOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.cca_version}"
+	modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"
+	modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
 
 	modRuntimeOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
 	modRuntimeOnly "dev.emi:trinkets:${project.trinkets_version}"
 	// required for trinkets
-	modRuntimeOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cca_version}"
-	modRuntimeOnly "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.cca_version}"
+	modRuntimeOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"
+	modRuntimeOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
 }
 
 processResources {
