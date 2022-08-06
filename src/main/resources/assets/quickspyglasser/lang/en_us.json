@@ -11,5 +11,7 @@
   "text.autoconfig.quickspyglasser-client.option.cinematicModeZoom": "Cinematic Mode When Zoomed",
   "text.autoconfig.quickspyglasser-client.option.mouseSensitivity": "Mouse Sensitivity When Zoomed",
   "text.autoconfig.quickspyglasser-client.option.mouseSensitivity.@Tooltip[0]": "Percentage (%)",
-  "text.autoconfig.quickspyglasser-client.option.mouseSensitivity.@Tooltip[1]": "800% means no zoom sensitivity scaling is applied"
+  "text.autoconfig.quickspyglasser-client.option.mouseSensitivity.@Tooltip[1]": "800% means no zoom sensitivity scaling is applied",
+
+  "trinkets.slot.legs.holster": "Holster"
 }

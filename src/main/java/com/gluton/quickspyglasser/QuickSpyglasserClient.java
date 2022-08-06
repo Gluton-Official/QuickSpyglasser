@@ -36,19 +36,25 @@ public class QuickSpyglasserClient implements ClientModInitializer {
 	private Item quickSpyglassItem;
 	private KeyBinding spyglassKeybind;
 
+	public static QuickSpyglasserClient getInstance() {
+		return instance;
+	}
+
 	@Override
 	public void onInitializeClient() {
 		instance = this;
 
 		this.spyglassKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
 				"key." + QuickSpyglasser.MOD_ID + ".use", InputUtil.Type.KEYSYM,
-				GLFW.GLFW_KEY_C, "category" + QuickSpyglasser.MOD_ID + "spyglass"));
-		ClientTickEvents.END_CLIENT_TICK.register(this::onEndTick);
-		QuickSpyglasserClientNetwork.init();
-	}
+				GLFW.GLFW_KEY_C, "category." + QuickSpyglasser.MOD_ID + ".spyglass"));
 
-	public static QuickSpyglasserClient getInstance() {
-		return instance;
+		ClientTickEvents.END_CLIENT_TICK.register(this::onEndTick);
+
+		if (QuickSpyglasser.getInstance().isTrinketsPresent())  {
+			SpyglassTrinket.registerClient();
+		}
+
+		QuickSpyglasserClientNetwork.init();
 	}
 
 	private void onEndTick(MinecraftClient client) {
@@ -69,6 +75,14 @@ public class QuickSpyglasserClient implements ClientModInitializer {
 		if (this.spyglassInUse == null) return;
 		this.isUsingSpyglass = true;
 		this.spyglassInUse.use(client.world, client.player, Hand.MAIN_HAND);
+		MinecraftClient.getInstance().player.getDataTracker().set(QuickSpyglasser.USING_SPYGLASS, (byte) 1);
+	}
+
+	private void stopUsingSpyglass(@NotNull MinecraftClient client) {
+		spyglassInUse.onStoppedUsing(client.world, client.player, 0);
+		isUsingSpyglass = false;
+		spyglassInUse = null;
+		MinecraftClient.getInstance().player.getDataTracker().set(QuickSpyglasser.USING_SPYGLASS, (byte) 0);
 	}
 
 	private void setSpyglassInUse(ClientPlayerEntity player) {
@@ -90,12 +104,6 @@ public class QuickSpyglasserClient implements ClientModInitializer {
 		} else if (player.getInventory().contains(this.quickSpyglassItem.getDefaultStack())) {
 			setSpyglassInUse(Items.SPYGLASS.getDefaultStack());
 		}
-	}
-
-	private void stopUsingSpyglass(@NotNull MinecraftClient client) {
-		spyglassInUse.onStoppedUsing(client.world, client.player, 0);
-		isUsingSpyglass = false;
-		spyglassInUse = null;
 	}
 
 	private static ItemStack getSimilarStack(PlayerInventory inventory, ItemStack itemStack) {

@@ -10,7 +10,9 @@
     "SpyglassItemMixin",
     "client.AbstractClientPlayerEntityMixin",
     "client.InGameHudMixin",
-    "client.MouseMixin"
+    "client.MouseMixin",
+    "client.ItemRendererAccessor",
+    "client.PlayerHeldItemFeatureRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
