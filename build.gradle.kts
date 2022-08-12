@@ -1,80 +1,110 @@
-plugins {
-//    id("dev.architectury.loom") version "0.11.0-SNAPSHOT"
-    id("fabric-loom") version "0.9-SNAPSHOT"
-    id("com.matthewprenger.cursegradle") version "1.4.0"
-//    id("com.modrinth.minotaur") version "2.+"
-    `maven-publish`
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_16
-    targetCompatibility = JavaVersion.VERSION_16
-}
-
-base {
-    archivesBaseName = project.properties["archives_base_name"].toString()
-}
-
-version = project.properties["mod_version"]
-group = project.properties["maven_group"]
-
-repositories {
-    mavenCentral()
-    maven { url = uri("https://maven.terraformersmc.com") }
-    maven { url = uri("https://maven.shedaniel.me/") }
-    maven {
-        name = "Ladysnake Libs"
-        url = uri("https://ladysnake.jfrog.io/artifactory/mods")
-    }
-    flatDir {
-        dirs("libs") // for trinkets since latest version isn't on maven
-    }
-}
-
-dependencies {
-    minecraft("com.mojang:minecraft:${project.properties["minecraft_version"]}")
-    mappings("net.fabricmc:yarn:${project.properties["yarn_mappings"]}:v2")
-//    forge("net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}")
-
-    modImplementation("net.fabricmc:fabric-loader:${project.properties["loader_version"]}")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${project.properties["fabric_version"]}")
-    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${project.properties["cloth_version"]}") {
-        exclude(group = "net.fabricmc.fabric-api")
-    }
-    modImplementation("dev.emi:trinkets:${project.properties["trinkets_version"]}") {
-        exclude(group = "net.fabricmc.fabric-api")
-    }
-    // required for trinkets
-    modImplementation("io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.properties["cca_version"]}")
-    modImplementation("io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.properties["cca_version"]}")
-
-    modCompileOnly("com.terraformersmc:modmenu:${project.properties["modmenu_version"]}") {
-        exclude(group = "net.fabricmc.fabric-api")
-    }
-    modCompileOnly("dev.emi:trinkets:${project.properties["trinkets_version"]}")
-    // required for trinkets
-    modCompileOnly("io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.properties["cca_version"]}")
-    modCompileOnly("io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.properties["cca_version"]}")
-
-    modRuntime("com.terraformersmc:modmenu:${project.properties["modmenu_version"]}")
-    modRuntime("dev.emi:trinkets:${project.properties["trinkets_version"]}")
-    // required for trinkets
-    modRuntime("io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.properties["cca_version"]}")
-    modRuntime("io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.properties["cca_version"]}")
-}
-
-tasks.processResources {
-    inputs.property("version", project.version)
-
-    filesMatching("fabric.mod.json") {
-        expand("version" to project.version)
-    }
-}
-
-tasks.compileJava {
-    options.release.set(16)
-}
-
-java {
-    withSourcesJar()
-}
+//plugins {
+//    kotlin("jvm")
+//
+//    id("architectury-plugin")
+//    id("dev.architectury.loom") apply false
+////    id("com.matthewprenger.cursegradle")
+////    id("com.modrinth.minotaur")
+//}
+//
+//val modId: String by project
+//val modGroup: String by project
+//val modVersion: String by project
+//
+//val String.version: String
+//    get() = rootProject.properties["${this}Version"].toString()
+//val String.asPropertyMapping: Pair<String, String>
+//    get() = this to project.properties[this].toString()
+//
+//infix fun String.`+`(other: String) = "$this+$other"
+//infix fun String.`-`(other: String) = "$this-$other"
+//
+//val minecraftMajVersion = "minecraft".version.split('.').take(2).joinToString(".")
+//
+//architectury {
+//    minecraft = minecraftMajVersion
+//}
+//
+//base {
+//    archivesName.set(modId)
+//}
+//
+//allprojects {
+//    apply("plugin" to "kotlin")
+//    apply("plugin" to "architectury-plugin")
+//    apply("plugin" to "maven-publish")
+//
+//    group = modGroup
+//    version = modVersion
+//
+//    val javaVersion = JavaVersion.toVersion(System.getProperty("java.version"))
+//    tasks {
+//        withType<JavaCompile> {
+//            options.encoding = "UTF-8"
+//            options.release.set(javaVersion.toString().toInt())
+//            sourceCompatibility = javaVersion.toString()
+//            targetCompatibility = javaVersion.toString()
+//        }
+//
+////        compileKotlin {
+////            kotlinOptions {
+////                jvmTarget = javaVersion.toString()
+////            }
+////        }
+//
+////        jar {
+////            from("LICENSE") {
+////                rename { "${it}_$modId" }
+////            }
+////        }
+//
+////        processResources {
+////            val properties = listOf(
+////                "modName",
+////                "modId",
+////                "modVersion",
+////                "modDescription",
+////                "fabricLoaderVersion",
+////                "fabricKotlinVersion",
+////            ).associate { it.asPropertyMapping } + mapOf(
+////                "packagePath" to "$modGroup.$modId",
+////                "javaVersion" to javaVersion.toString(),
+////                "minecraftVersion" to "$minecraftMajVersion.x"
+////            )
+////
+////            inputs.properties(properties)
+////            filesMatching(listOf("fabric.mod.json", "quickspyglasser.mixins.json")) {
+////                expand(properties)
+////            }
+////        }
+//    }
+//
+//    java {
+////        toolchain {
+////            languageVersion.set(JavaLanguageVersion.of(javaVersion.toString()))
+////        }
+//        withSourcesJar()
+//    }
+//}
+//
+//subprojects {
+//    apply("plugin" to "dev.architectury.loom")
+//
+//    loom {
+//        silentMojangMappingsLicense()
+//    }
+//
+//    dependencies {
+//        minecraft("com.mojang", "minecraft", "minecraft".version)
+//        mappings("net.fabricmc", "yarn", "minecraft".version `+` "yarnMappings".version, null, "v2")
+//    }
+//}
+//
+////dependencies {
+////    minecraft("com.mojang", "minecraft", "minecraft".version)
+////    forge("net.minecraftforge", "forge", "minecraft".version `-` "forge".version)
+////
+////    modImplementation("net.fabricmc", "fabric-loader", "fabricLoader".version)
+////    modImplementation("net.fabricmc.fabric-api", "fabric-api", "fabric".version `+` "minecraft".version)
+////    modImplementation("net.fabricmc", "fabric-language-kotlin", "fabricKotlin".version `+` "kotlin.${System.getProperty("kotlinVersion")}")
+////}

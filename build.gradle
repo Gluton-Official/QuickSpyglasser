@@ -1,0 +1,74 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.7.10"
+
+    id "architectury-plugin" version "3.4-SNAPSHOT"
+    id "dev.architectury.loom" version "0.12.0-SNAPSHOT" apply false
+}
+
+architectury {
+    minecraft = rootProject.minecraftVersion
+}
+
+subprojects {
+    apply plugin: "dev.architectury.loom"
+
+    loom {
+        silentMojangMappingsLicense()
+    }
+
+    dependencies {
+        minecraft "com.mojang:minecraft:${rootProject.minecraftVersion}"
+        mappings loom.officialMojangMappings()
+    }
+}
+
+allprojects {
+//    apply plugin: "kotlin"
+    apply plugin: "java"
+    apply plugin: "architectury-plugin"
+    apply plugin: "maven-publish"
+
+    archivesBaseName = rootProject.modId
+    version = rootProject.modVersion
+    group = rootProject.modGroup
+
+    repositories {
+        // Add repositories to retrieve artifacts from in here.
+        // You should only use this when depending on other mods because
+        // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+        // See https://docs.gradle.org/current/userguide/declaring_repositories.html
+        // for more information about repositories.
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+        options.release = System.getProperty("java.version").toInteger()
+    }
+
+    java {
+        withSourcesJar()
+    }
+}
+
+rootProject.ext.gradleProperties = [
+    "modDisplayName",
+    "modId",
+    "modGroup",
+    "modVersion",
+    "modAuthors",
+    "modDescription",
+    "modLicense",
+    "modHomepage",
+    "modSources",
+    "modIssues"
+].<String, String, String>collectEntries {
+    [it, rootProject.properties[it].toString()]
+} + rootProject.properties.findAll { k, _ ->
+    k.endsWith("Version")
+} + [
+    "modName": project.name,
+    "packagePath": "${rootProject.modGroup}.${rootProject.modId}",
+    "javaVersion": System.getProperty("java.version"),
+    "minecraftMajVersion": "${rootProject.minecraftVersion.toString().split(/\./).take(2).join(".")}",
+    "forgeMajVersion": "${rootProject.forgeVersion.toString().split(/\./)[0]}"
+]
