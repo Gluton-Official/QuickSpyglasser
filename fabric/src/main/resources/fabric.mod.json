@@ -1,0 +1,32 @@
+{
+    "schemaVersion": 1,
+    "id": "$modId",
+    "version": "$modVersion",
+    "name": "$modDisplayName",
+    "description": "$modDescription",
+    "authors": [
+        "$modAuthors"
+    ],
+    "contact": {
+        "homepage": "$modHomepage",
+        "sources": "$modSources",
+        "issues": "$modIssues"
+    },
+    "license": "$modLicense",
+    "icon": "assets/$modId/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "${packagePath}.fabric.${modName}Fabric"
+        ]
+    },
+    "mixins": [
+        "${modId}.mixins.json",
+        "${modId}-common.mixins.json"
+    ],
+    "depends": {
+        "fabric": "*",
+        "minecraft": "${minecraftMajVersion}.x",
+        "architectury": ">=$architecturyVersion"
+    }
+}

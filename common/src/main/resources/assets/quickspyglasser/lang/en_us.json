@@ -1,0 +1,17 @@
+{
+  "category.quickspyglasser.spyglass": "Quick Spyglasser",
+  "key.quickspyglasser.use": "Use Spyglass",
+
+  "commands.quickspyglasser.config.success": "Set %s to %s",
+  "commands.quickspyglasser.config.queryItem": "%s is %s %s",
+
+  "text.autoconfig.quickspyglasser-client.title": "Quick Spyglasser Config",
+  "text.autoconfig.quickspyglasser-client.option.showSpyglassOverlay": "Show Spyglass Overlay",
+  "text.autoconfig.quickspyglasser-client.option.playSpyglassSound": "Play Spyglass Sound",
+  "text.autoconfig.quickspyglasser-client.option.cinematicModeZoom": "Cinematic Mode When Zoomed",
+  "text.autoconfig.quickspyglasser-client.option.mouseSensitivity": "Mouse Sensitivity When Zoomed",
+  "text.autoconfig.quickspyglasser-client.option.mouseSensitivity.@Tooltip[0]": "Percentage (%)",
+  "text.autoconfig.quickspyglasser-client.option.mouseSensitivity.@Tooltip[1]": "800% means no zoom sensitivity scaling is applied",
+
+  "trinkets.slot.legs.holster": "Holster"
+}

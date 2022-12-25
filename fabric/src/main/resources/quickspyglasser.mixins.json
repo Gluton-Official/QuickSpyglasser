@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "${packagePath}.mixin.fabric",
+  "compatibilityLevel": "JAVA_$javaVersion",
+  "client": [
+  ],
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
