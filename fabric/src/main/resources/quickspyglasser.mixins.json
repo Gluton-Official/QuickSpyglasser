@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "${packagePath}.mixin.fabric",
+  "package": "${packagePath}.fabric.mixin",
   "compatibilityLevel": "JAVA_$javaVersion",
   "minVersion": "0.8",
   "client": [

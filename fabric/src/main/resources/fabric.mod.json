@@ -19,7 +19,7 @@
         "main": [
             {
                 "adapter": "kotlin",
-                "value": "${packagePath}.fabric.${modName}Fabric"
+                "value": "${packagePath}.fabric.${modName}"
             }
         ]
     },
