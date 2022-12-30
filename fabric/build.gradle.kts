@@ -25,10 +25,12 @@ configurations {
 }
 
 dependencies {
-    modApi("net.fabricmc.fabric-api", "fabric-api", versionOf("fabric") `+` versionOf("minecraft"))
-    modApi("dev.architectury", "architectury-fabric", versionOf("architectury"))
-//    modImplementation("net.fabricmc", "fabric-loader", versionOf("fabricLoader"))
-    modImplementation("net.fabricmc", "fabric-language-kotlin", versionOf("fabricKotlin") `+` "kotlin.${System.getProperty("kotlinVersion")}")
+    modImplementation("net.fabricmc.fabric-api", "fabric-api", versionStringOf("fabric") `+` versionStringOf("minecraft"))
+    modImplementation("net.fabricmc", "fabric-loader", versionStringOf("fabricLoader")) // force correct version
+    modImplementation("net.fabricmc", "fabric-language-kotlin", versionStringOf("kotlinForFabric") `+` "kotlin.${System.getProperty("kotlinVersion")}")
+    modApi("dev.architectury", "architectury-fabric", versionStringOf("architectury")) {
+        exclude(group = "net.fabricmc", module = "fabric-loader")
+    }
 
     // uses parent projects as a dependency
     common(project(path = ":common", configuration = "namedElements")) { isTransitive = false }
@@ -45,7 +47,6 @@ javaComponent.withVariantsFromConfiguration(configurations["shadowRuntimeElement
 
 tasks {
     processResources {
-        // TODO: simplify
         val gradleProperties: Map<String, String> by rootProject.extra
         inputs.properties(gradleProperties)
         filesMatching(listOf("fabric.mod.json", "$modId.mixins.json")) {

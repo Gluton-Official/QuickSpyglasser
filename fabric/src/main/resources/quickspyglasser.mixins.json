@@ -2,6 +2,7 @@
   "required": true,
   "package": "${packagePath}.mixin.fabric",
   "compatibilityLevel": "JAVA_$javaVersion",
+  "minVersion": "0.8",
   "client": [
   ],
   "mixins": [

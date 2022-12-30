@@ -40,13 +40,15 @@ val gradleProperties: Map<String, String> by extra(
         "modName" to rootProject.name,
         "packagePath" to "${rootProject.properties["modGroup"]}.${rootProject.properties["modId"]}",
         "javaVersion" to System.getProperty("java.version"),
-        "minecraftMajVersion" to versionOf("minecraft").split('.').take(2).joinToString("."),
-        "forgeMajVersion" to versionOf("forge").split('.')[0]
+        "minecraftMajMinVersion" to versionOf("minecraft").majMinor,
+        "forgeMajVersion" to versionOf("forge").major,
+        "kotlinForForgeMajMinVersion" to versionOf("kotlinForForge").majMinor,
+        "fabricLoaderMajMinVersion" to versionOf("fabricLoader").majMinor,
     )
 )
 
 architectury {
-    minecraft = gradleProperties["minecraftMajVersion"]!!.toString()
+    minecraft = gradleProperties["minecraftMajMinVersion"]!!.toString()
 }
 
 subprojects {
@@ -57,7 +59,7 @@ subprojects {
     loom.silentMojangMappingsLicense()
 
     dependencies {
-        "minecraft"("com.mojang", "minecraft", versionOf("minecraft"))
+        "minecraft"("com.mojang", "minecraft", versionStringOf("minecraft"))
         "mappings"(loom.officialMojangMappings())
     }
 }
@@ -92,7 +94,10 @@ allprojects {
         compileKotlin {
             kotlinOptions {
                 jvmTarget = javaVersion
-                freeCompilerArgs = listOf("-Xjvm-default-all")
+                freeCompilerArgs = listOf(
+                    "-Xjvm-default-all",
+                    "-Xlambdas=indy",
+                )
             }
         }
 

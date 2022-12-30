@@ -2,6 +2,7 @@
   "required": true,
   "package": "${packagePath}.mixin.forge",
   "compatibilityLevel": "JAVA_$javaVersion",
+  "minVersion": "0.8",
   "client": [
   ],
   "mixins": [

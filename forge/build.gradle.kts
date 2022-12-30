@@ -32,9 +32,17 @@ configurations {
     developmentForge.extendsFrom(configurations["common"])
 }
 
+repositories {
+    maven("https://thedarkcolour.github.io/KotlinForForge/") { name = "KotlinForForge" }
+}
+
 dependencies {
-    forge("net.minecraftforge", "forge", versionOf("minecraft") `-` versionOf("forge"))
-    modApi("dev.architectury", "architectury-forge", versionOf("architectury"))
+    forge("net.minecraftforge", "forge", versionStringOf("minecraft") `-` versionStringOf("forge"))
+    modApi("dev.architectury", "architectury-forge", versionStringOf("architectury"))
+
+    implementation("thedarkcolour", "kotlinforforge", versionStringOf("kotlinForForge"))
+    forgeRuntimeLibrary(kotlin("stdlib-jdk8", version = System.getProperty("kotlinVersion")))
+    forgeRuntimeLibrary(kotlin("reflect", version = System.getProperty("kotlinVersion")))
 
     common(project(path = ":common", configuration = "namedElements")) { isTransitive = false }
     shadowCommon(project(path = ":common", configuration = "transformProductionForge")) { isTransitive = false }

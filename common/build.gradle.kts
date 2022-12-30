@@ -16,10 +16,13 @@ loom {
 dependencies {
     // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
     // Do NOT use other classes from fabric loader
-    modImplementation("net.fabricmc", "fabric-loader", versionOf("fabricLoader"))
-    modApi("dev.architectury", "architectury", versionOf("architectury"))
+    modImplementation("net.fabricmc", "fabric-loader", versionStringOf("fabricLoader"))
+    modApi("dev.architectury", "architectury", versionStringOf("architectury")) {
+        exclude(group = "net.fabricmc", module = "fabric-loader")
+    }
 
     implementation(kotlin("stdlib-jdk8"))
+    implementation(kotlin("reflect"))
 }
 
 tasks {
