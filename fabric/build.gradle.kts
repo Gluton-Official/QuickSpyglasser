@@ -25,8 +25,8 @@ configurations {
 }
 
 dependencies {
-    modImplementation("net.fabricmc.fabric-api", "fabric-api", versionStringOf("fabric") `+` versionStringOf("minecraft"))
-    modImplementation("net.fabricmc", "fabric-loader", versionStringOf("fabricLoader")) // force correct version
+    modApi("net.fabricmc.fabric-api", "fabric-api", versionStringOf("fabric") `+` versionStringOf("minecraft"))
+    modImplementation("net.fabricmc", "fabric-loader", versionStringOf("fabricLoader"))
     modImplementation("net.fabricmc", "fabric-language-kotlin", versionStringOf("kotlinForFabric") `+` "kotlin.${System.getProperty("kotlinVersion")}")
     modApi("dev.architectury", "architectury-fabric", versionStringOf("architectury")) {
         exclude(group = "net.fabricmc", module = "fabric-loader")
