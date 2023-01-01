@@ -16,10 +16,10 @@
     "icon": "assets/$modId/icon.png",
     "environment": "*",
     "entrypoints": {
-        "main": [
+        "client": [
             {
                 "adapter": "kotlin",
-                "value": "${packagePath}.fabric.${modName}"
+                "value": "${packagePath}.fabric.${modName}ClientFabric"
             }
         ]
     },

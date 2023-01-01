@@ -1,6 +1,6 @@
 {
-  "category.quickspyglasser.spyglass": "Quick Spyglasser",
-  "key.quickspyglasser.use": "Use Spyglass",
+  "category.quickspyglasser.quickspyglasser": "Quick Spyglasser",
+  "key.quickspyglasser.spyglass": "Use Spyglass",
 
   "commands.quickspyglasser.config.success": "Set %s to %s",
   "commands.quickspyglasser.config.queryItem": "%s is %s %s",
